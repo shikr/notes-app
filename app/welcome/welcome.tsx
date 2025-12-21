@@ -1,41 +1,37 @@
-import { Form, useNavigation } from "react-router";
+import { Form, useNavigation } from 'react-router'
 
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
+import logoDark from './logo-dark.svg'
+import logoLight from './logo-light.svg'
 
 export function Welcome({
   guestBook,
   guestBookError,
-  message,
+  message
 }: {
   guestBook: {
-    name: string;
-    id: number;
-  }[];
-  guestBookError?: string;
-  message: string;
+    name: string
+    id: number
+  }[]
+  guestBookError?: string
+  message: string
 }) {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   return (
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
         <header className="flex flex-col items-center gap-9">
           <h1 className="sr-only">{message}</h1>
-          <div className="w-[500px] max-w-[100vw] p-4">
+          <div className="w-125 max-w-[100vw] p-4">
             <img
               src={logoLight}
               alt="React Router"
               className="block w-full dark:hidden"
             />
-            <img
-              src={logoDark}
-              alt="React Router"
-              className="hidden w-full dark:block"
-            />
+            <img src={logoDark} alt="React Router" className="hidden w-full dark:block" />
           </div>
         </header>
-        <div className="max-w-[300px] w-full space-y-6 px-4">
+        <div className="max-w-75 w-full space-y-6 px-4">
           <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
             <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
               What&apos;s next?
@@ -61,13 +57,13 @@ export function Welcome({
               method="post"
               className="space-y-4 w-full max-w-lg"
               onSubmit={(event) => {
-                if (navigation.state === "submitting") {
-                  event.preventDefault();
+                if (navigation.state === 'submitting') {
+                  event.preventDefault()
                 }
-                const form = event.currentTarget;
+                const form = event.currentTarget
                 requestAnimationFrame(() => {
-                  form.reset();
-                });
+                  form.reset()
+                })
               }}
             >
               <input
@@ -85,15 +81,13 @@ export function Welcome({
               />
               <button
                 type="submit"
-                disabled={navigation.state === "submitting"}
+                disabled={navigation.state === 'submitting'}
                 className="w-full h-10 px-3 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
               >
                 Sign Guest Book
               </button>
               {guestBookError && (
-                <p className="text-red-500 dark:text-red-400">
-                  {guestBookError}
-                </p>
+                <p className="text-red-500 dark:text-red-400">{guestBookError}</p>
               )}
             </Form>
             <ul className="text-center">
@@ -108,15 +102,16 @@ export function Welcome({
         </div>
       </div>
     </main>
-  );
+  )
 }
 
 const resources = [
   {
-    href: "https://reactrouter.com/docs",
-    text: "React Router Docs",
+    href: 'https://reactrouter.com/docs',
+    text: 'React Router Docs',
     icon: (
       <svg
+        role="graphics-symbol"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="20"
@@ -130,13 +125,14 @@ const resources = [
           strokeLinecap="round"
         />
       </svg>
-    ),
+    )
   },
   {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
+    href: 'https://rmx.as/discord',
+    text: 'Join Discord',
     icon: (
       <svg
+        role="graphics-symbol"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="20"
@@ -149,6 +145,6 @@ const resources = [
           strokeWidth="1.5"
         />
       </svg>
-    ),
-  },
-];
+    )
+  }
+]
