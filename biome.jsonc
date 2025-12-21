@@ -1,7 +1,7 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-  "files": { "ignoreUnknown": true, "includes": ["**", "!server.js"] },
+  "files": { "ignoreUnknown": true, "includes": ["**", "!server.js", "!drizzle/"] },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
