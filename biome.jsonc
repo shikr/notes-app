@@ -1,0 +1,197 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "ignoreUnknown": true, "includes": ["**", "!server.js"] },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 90,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noCommaOperator": "off",
+        "noBannedTypes": "warn",
+        "noExtraBooleanCast": "warn",
+        "noEmptyTypeParameters": "warn",
+        "noUselessCatch": "error",
+        "noUselessEscapeInRegex": "error",
+        "noUselessFragments": "warn",
+        "noUselessRename": "warn",
+        "noUselessTernary": "warn",
+        "noUselessThisAlias": "error",
+        "useArrowFunction": "warn"
+      },
+      "correctness": {
+        "noConstAssign": "error",
+        "noConstantCondition": "warn",
+        "noConstructorReturn": "error",
+        "noEmptyPattern": "warn",
+        "noInnerDeclarations": "error",
+        "noInvalidConstructorSuper": "error",
+        "noInvalidUseBeforeDeclaration": "error",
+        "noPrecisionLoss": "error",
+        "noReactPropAssignments": "error",
+        "noSetterReturn": "error",
+        "noStringCaseMismatch": "error",
+        "noSwitchDeclarations": "error",
+        "noUndeclaredDependencies": "error",
+        "noUndeclaredVariables": "error",
+        "noUnreachable": "warn",
+        "noUnreachableSuper": "error",
+        "noUnsafeFinally": "error",
+        "noUnsafeOptionalChaining": "error",
+        "noUnusedFunctionParameters": {
+          "level": "warn",
+          "options": {
+            "ignoreRestSiblings": false
+          }
+        },
+        "noUnusedImports": "warn",
+        "noUnusedLabels": "warn",
+        "noUnusedVariables": {
+          "level": "warn",
+          "options": {
+            "ignoreRestSiblings": false
+          }
+        },
+        "noVoidElementsWithChildren": "warn",
+        "noVoidTypeReturn": "error",
+        "useExhaustiveDependencies": "warn",
+        "useHookAtTopLevel": "error",
+        "useImportExtensions": "off",
+        "useIsNan": "error",
+        "useJsonImportAttributes": "warn",
+        "useJsxKeyInIterable": "error",
+        "useValidTypeof": "error",
+        "useYield": "error"
+      },
+      "nursery": {
+        "noEqualsToNull": "error",
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error"
+      },
+      "performance": {
+        "noBarrelFile": "warn"
+      },
+      "security": {
+        "noSecrets": "error"
+      },
+      "style": {
+        "noExportedImports": "warn",
+        "noNegationElse": "warn",
+        "noParameterAssign": "error",
+        "noSubstr": "warn",
+        "noUselessElse": "warn",
+        "useArrayLiterals": "warn",
+        "useAsConstAssertion": "warn",
+        // React Router v7 use loaders and actions which rely on object exports
+        "useComponentExportOnlyModules": "off",
+        "useCollapsedElseIf": "warn",
+        "useConsistentArrayType": "warn",
+        "useConsistentBuiltinInstantiation": "warn",
+        "useConsistentCurlyBraces": "warn",
+        "useConsistentMemberAccessibility": {
+          "level": "warn",
+          "options": {
+            "accessibility": "explicit"
+          }
+        },
+        "useConsistentTypeDefinitions": {
+          "level": "warn",
+          "options": {
+            "style": "interface"
+          }
+        },
+        "useConst": "warn",
+        "useExplicitLengthCheck": "error",
+        "useExportType": "warn",
+        "useFragmentSyntax": "warn",
+        "useImportType": "warn",
+        "useNamingConvention": "warn",
+        "useReactFunctionComponents": "warn",
+        "useSelfClosingElements": "warn"
+      },
+      "suspicious": {
+        "noAlert": "error",
+        "noApproximativeNumericConstant": "error",
+        "noArrayIndexKey": "error",
+        "noAsyncPromiseExecutor": "error",
+        "noCatchAssign": "error",
+        "noClassAssign": "error",
+        "noCommentText": "error",
+        "noConfusingLabels": "warn",
+        "noConfusingVoidType": "warn",
+        "noConsole": "warn",
+        "noConstEnum": "error",
+        "noDoubleEquals": "error",
+        "noDuplicateClassMembers": "error",
+        "noDuplicateElseIf": "warn",
+        "noDuplicateJsxProps": "error",
+        "noDuplicateObjectKeys": "error",
+        "noDuplicateParameters": "error",
+        "noEmptyBlockStatements": "warn",
+        "noEmptyInterface": "warn",
+        "noEvolvingTypes": "warn",
+        "noExplicitAny": "warn",
+        "noExtraNonNullAssertion": "warn",
+        "noGlobalAssign": "error",
+        "noImplicitAnyLet": "warn",
+        "noImportAssign": "error",
+        "noIrregularWhitespace": "warn",
+        "noLabelVar": "error",
+        "noMisleadingInstantiator": "error",
+        "noRedeclare": "error",
+        "noShadowRestrictedNames": "error",
+        "noSparseArray": "error",
+        "noSuspiciousSemicolonInJsx": "warn",
+        "noTsIgnore": "error",
+        "noUnassignedVariables": "error",
+        "noUnsafeNegation": "error",
+        "noVar": "error",
+        "useAwait": "warn",
+        "useGetterReturn": "error",
+        "useIsArray": "error",
+        "useIterableCallbackReturn": "error"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "none",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    }
+  },
+  "html": {
+    "formatter": {
+      "indentScriptAndStyle": false,
+      "selfCloseVoidElements": "always"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": { "source": { "organizeImports": "on" } }
+  }
+}
