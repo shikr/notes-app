@@ -1,7 +1,7 @@
 import { database } from '~/database/context'
 import * as schema from '~/database/schema'
-import { Welcome } from '../welcome/welcome'
 import type { Route } from './+types/home'
+import { Welcome } from './components/welcome'
 
 // biome-ignore lint/correctness/noEmptyPattern: Meta function example
 export function meta({}: Route.MetaArgs) {
@@ -45,7 +45,7 @@ export async function loader({ context }: Route.LoaderArgs) {
 
   return {
     guestBook,
-    message: context.VALUE_FROM_EXPRESS
+    message: context.value
   }
 }
 
