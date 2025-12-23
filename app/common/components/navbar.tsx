@@ -7,12 +7,12 @@ export function Navbar() {
     <nav className="bg-indigo-300/10 backdrop-blur-md p-2 h-auto">
       <ul className="flex items-center justify-between w-full">
         <li className="flex items-center justify-center">
-          <Button as={Link} to="/" aria-label="home" variant="light">
+          <Button as={Link} to="/" aria-label="home" variant="light" viewTransition>
             <IconHome size={28} />
           </Button>
         </li>
         <li className="flex items-center justify-center">
-          <Button as={Link} to="/login" aria-label="login" variant="light">
+          <Button as={Link} to="/login" aria-label="login" variant="light" viewTransition>
             <IconLogin size={28} />
           </Button>
         </li>
