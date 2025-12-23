@@ -9,7 +9,8 @@ const button = tv({
     color: {
       primary: 'bg-indigo-100 ring-indigo-200/30 hover:opacity-70',
       secondary:
-        'bg-black/40 ring-gray-200/30 ring-1 hover:ring-gray-300/30 hover:opacity-70'
+        'bg-black/40 ring-gray-200/30 ring-1 hover:ring-gray-300/30 hover:opacity-70',
+      danger: 'bg-red-500/80 ring-red-200/30 hover:opacity-70'
     },
     variant: {
       solid: 'text-gray-800',
@@ -34,6 +35,12 @@ const button = tv({
       color: 'secondary',
       variant: 'light',
       className: 'ring-0 hover:ring-1 hover:bg-black/40'
+    },
+    { color: 'danger', variant: 'solid', className: 'text-white' },
+    {
+      color: 'danger',
+      variant: 'light',
+      className: 'ring-red-700/60 hover:ring-1 hover:bg-red-500/30 hover:opacity-100'
     }
   ],
   defaultVariants: {
