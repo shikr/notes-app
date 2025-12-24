@@ -1,5 +1,5 @@
 {
-  "id": "bfdfbdfe-60aa-4e4a-b304-d47783a03307",
+  "id": "89d33f2e-2c7b-43ea-a3af-5e2e30ddc746",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -27,8 +27,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -50,12 +50,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "notes_userId_users_id_fk": {
-          "name": "notes_userId_users_id_fk",
+        "notes_user_id_users_id_fk": {
+          "name": "notes_user_id_users_id_fk",
           "tableFrom": "notes",
           "tableTo": "users",
           "columnsFrom": [
-            "userId"
+            "user_id"
           ],
           "columnsTo": [
             "id"
