@@ -6,7 +6,8 @@ export default [
 
     layout('./routes/auth/auth.tsx', [
       route('/login', 'routes/auth/auth.login.tsx'),
-      route('/register', 'routes/auth/auth.register.tsx')
+      route('/register', 'routes/auth/auth.register.tsx'),
+      route('/refresh', 'routes/auth/auth.refresh.tsx')
     ])
   ])
 ] satisfies RouteConfig
