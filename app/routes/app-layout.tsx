@@ -1,6 +1,7 @@
 import { parseCookie } from 'cookie'
 import { Outlet } from 'react-router'
 import { Navbar } from '~/common/components/navbar'
+import { useAutoRefresh } from '~/common/hooks/useAutoRefresh'
 import { database } from '~/database/context'
 import type { Route } from './+types/app-layout'
 import { getUserFromAccessToken } from './auth/services/auth.server'
@@ -17,6 +18,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function Layout() {
+  useAutoRefresh()
+
   return (
     <main className="flex h-screen flex-col">
       <Navbar />
