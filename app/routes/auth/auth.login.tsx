@@ -1,6 +1,10 @@
+import { eq } from 'drizzle-orm'
 import { Link, redirect } from 'react-router'
+import { database } from '~/database/context'
+import { users } from '~/database/schema'
 import type { Route } from './+types/auth.login'
 import { AuthForm } from './components/auth-form'
+import { createUserSession, verifyPassword } from './services/auth.server'
 
 export function meta(_: Route.MetaArgs) {
   return [
@@ -11,24 +15,33 @@ export function meta(_: Route.MetaArgs) {
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData()
-  const user = formData.get('user')
+  const username = formData.get('user')
   const password = formData.get('password')
 
-  // TODO: Implement real authentication logic
-  if (typeof user !== 'string' || typeof password !== 'string') {
+  if (
+    typeof username !== 'string' ||
+    typeof password !== 'string' ||
+    !username.trim() ||
+    !password.trim()
+  ) {
     return { loginError: 'Username and password are required' }
   }
 
-  if (!user.trim() || !password.trim()) {
-    return { loginError: 'Username and password are required' }
-  }
+  const db = database()
 
-  return redirect('/')
-}
+  const [user] = await db.select().from(users).where(eq(users.name, username)).limit(1)
 
-export function loader(_: Route.LoaderArgs) {
-  // TODO: Validate if user is logged in
-  return null
+  if (user === undefined || !(await verifyPassword(password, user.password)))
+    return {
+      loginError: 'Invalid username or password'
+    }
+
+  const { accessToken, refreshToken } = await createUserSession(db, user.id)
+  const headers = new Headers()
+  headers.append('Set-Cookie', accessToken)
+  headers.append('Set-Cookie', refreshToken)
+
+  return redirect('/', { headers })
 }
 
 export default function Login(_: Route.ComponentProps) {

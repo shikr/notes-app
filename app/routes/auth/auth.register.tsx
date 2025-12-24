@@ -1,6 +1,9 @@
 import { Link, redirect } from 'react-router'
+import { database } from '~/database/context'
+import { users } from '~/database/schema'
 import type { Route } from './+types/auth.register'
 import { AuthForm } from './components/auth-form'
+import { createUserSession, hashPassword } from './services/auth.server'
 
 export function meta(_: Route.MetaArgs) {
   return [
@@ -11,19 +14,35 @@ export function meta(_: Route.MetaArgs) {
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData()
-  const user = formData.get('user')
+  const name = formData.get('user')
   const password = formData.get('password')
 
-  // TODO: Implement real authentication logic
-  if (typeof user !== 'string' || typeof password !== 'string') {
-    return { loginError: 'Username and password are required' }
+  if (
+    typeof name !== 'string' ||
+    typeof password !== 'string' ||
+    !name.trim() ||
+    !password.trim()
+  ) {
+    return { registerError: 'Username and password are required' }
   }
 
-  if (!user.trim() || !password.trim()) {
-    return { loginError: 'Username and password are required' }
-  }
+  const db = database()
 
-  return redirect('/')
+  try {
+    const [{ userId }] = await db
+      .insert(users)
+      .values({ name, password: await hashPassword(password) })
+      .returning({ userId: users.id })
+
+    const { accessToken, refreshToken } = await createUserSession(db, userId)
+    const headers = new Headers()
+    headers.append('Set-Cookie', accessToken)
+    headers.append('Set-Cookie', refreshToken)
+
+    return redirect('/', { headers })
+  } catch {
+    return { registerError: 'User registration failed' }
+  }
 }
 
 export function loader(_: Route.LoaderArgs) {
