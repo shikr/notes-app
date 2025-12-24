@@ -1,3 +1,5 @@
+import { type UIMatch, useMatches, useNavigate, useOutlet } from 'react-router'
+import { Modal } from '~/common/components/modal'
 import type { Route } from './+types/home'
 import type { Note } from './components/note'
 import { NoteCollection } from './components/note-collection'
@@ -76,5 +78,25 @@ export function loader(_: Route.LoaderArgs) {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  return <NoteCollection notes={loaderData.notes} />
+  const outlet = useOutlet()
+  const navigate = useNavigate()
+  const matches = useMatches() as UIMatch<
+    unknown,
+    { modal?: boolean; header?: React.ReactNode }
+  >[]
+
+  const match = matches.find((match) => match.handle?.modal ?? false)
+
+  return (
+    <>
+      <NoteCollection notes={loaderData.notes} />
+      <Modal
+        isOpen={match !== undefined}
+        onClose={() => navigate('/', { replace: true, viewTransition: false })}
+        header={match?.handle?.header}
+      >
+        {outlet}
+      </Modal>
+    </>
+  )
 }
