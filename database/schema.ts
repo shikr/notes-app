@@ -28,6 +28,6 @@ export const notes = pgTable('notes', {
   updatedAt: timestamp('updated_at').defaultNow().notNull()
 })
 
-export type User = typeof users.$inferSelect
+export type User = Omit<typeof users.$inferSelect, 'password'>
 export type RefreshToken = typeof refreshTokens.$inferSelect
 export type Note = typeof notes.$inferSelect
