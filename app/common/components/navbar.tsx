@@ -1,6 +1,6 @@
 import { IconHome, IconLogin } from '@tabler/icons-react'
 import { Link, useFetcher, useRouteLoaderData } from 'react-router'
-import type { User } from '~/routes/app-layout'
+import type { User } from '~/database/schema'
 import { Button } from './button'
 
 export function Navbar() {

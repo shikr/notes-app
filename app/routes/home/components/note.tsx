@@ -1,6 +1,6 @@
 import { useFetcher } from 'react-router'
 import { Button } from '~/common/components/button'
-import type { User } from '~/routes/app-layout'
+import type { User } from '~/database/schema'
 
 export interface Note {
   id: string

@@ -9,49 +9,49 @@ let notes: Note[] = [
     id: '1',
     title: 'First Note',
     content: 'This is the content of the first note.',
-    user: { id: 'u1', name: 'Alice' }
+    user: { id: 'u1', name: 'Alice', createdAt: new Date() }
   },
   {
     id: '2',
     title: 'Second Note',
     content: 'This is the content of the second note.',
-    user: { id: 'u2', name: 'Bob' }
+    user: { id: 'u2', name: 'Bob', createdAt: new Date() }
   },
   {
     id: '3',
     title: 'Third Note',
     content: 'This is the content of the third note.',
-    user: { id: 'u3', name: 'Charlie' }
+    user: { id: 'u3', name: 'Charlie', createdAt: new Date() }
   },
   {
     id: '4',
     title: 'Fourth Note',
     content: 'This is the content of the fourth note.',
-    user: { id: 'u4', name: 'Diana' }
+    user: { id: 'u4', name: 'Diana', createdAt: new Date() }
   },
   {
     id: '5',
     title: 'Fifth Note',
     content: 'This is the content of the fifth note.',
-    user: { id: 'u5', name: 'Ethan' }
+    user: { id: 'u5', name: 'Ethan', createdAt: new Date() }
   },
   {
     id: '6',
     title: 'Sixth Note',
     content: 'This is the content of the sixth note.',
-    user: { id: 'u6', name: 'Fiona' }
+    user: { id: 'u6', name: 'Fiona', createdAt: new Date() }
   },
   {
     id: '7',
     title: 'Seventh Note',
     content: 'This is the content of the seventh note.',
-    user: { id: 'u7', name: 'George' }
+    user: { id: 'u7', name: 'George', createdAt: new Date() }
   },
   {
     id: '8',
     title: 'Eighth Note',
     content: 'This is the content of the eighth note.',
-    user: { id: 'u8', name: 'Hannah' }
+    user: { id: 'u8', name: 'Hannah', createdAt: new Date() }
   }
 ]
 
