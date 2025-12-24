@@ -14,3 +14,5 @@ export function database() {
   }
   return db
 }
+
+export type Database = PostgresJsDatabase<typeof schema>
