@@ -1,11 +1,21 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { useLocation, useOutlet } from 'react-router'
+import { useLocation, useNavigate, useOutlet, useRouteLoaderData } from 'react-router'
+import type { User } from '~/database/schema'
 
 export default function Auth() {
+  const { user } = useRouteLoaderData<{ user: User | null }>('routes/app-layout') ?? {
+    user: null
+  }
   const location = useLocation()
   // Use the outlet hook instead of the Outlet component
   // to avoid flickering during animations
   const outlet = useOutlet()
+  const navigate = useNavigate()
+
+  if (user !== null) {
+    void navigate('/')
+    return null
+  }
 
   const isRegister = location.pathname.includes('register')
 
