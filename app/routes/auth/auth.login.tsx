@@ -44,10 +44,15 @@ export async function action({ request }: Route.ActionArgs) {
   return redirect('/', { headers })
 }
 
-export default function Login(_: Route.ComponentProps) {
+export default function Login({ actionData }: Route.ComponentProps) {
   return (
     <div className="p-6 space-y-4">
       <h2 className="font-bold text-xl">Login</h2>
+      {actionData?.loginError !== undefined && (
+        <div className="mx-4 p-2 bg-red-600/40 ring-1 ring-red-600/80 rounded-md">
+          {actionData.loginError}
+        </div>
+      )}
       <AuthForm label="Login" />
       <div className="space-x-1">
         <span>Don't have an account?</span>
