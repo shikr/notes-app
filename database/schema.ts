@@ -1,3 +1,4 @@
+import { type InferSelectModel, relations } from 'drizzle-orm'
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
@@ -6,6 +7,10 @@ export const users = pgTable('users', {
   password: text('password').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull()
 })
+
+export const usersRelations = relations(users, ({ many }) => ({
+  notes: many(notes)
+}))
 
 export const refreshTokens = pgTable('refresh_tokens', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -28,6 +33,15 @@ export const notes = pgTable('notes', {
   updatedAt: timestamp('updated_at').defaultNow().notNull()
 })
 
+export const notesRelations = relations(notes, ({ one }) => ({
+  author: one(users, {
+    fields: [notes.userId],
+    references: [users.id]
+  })
+}))
+
 export type User = Omit<typeof users.$inferSelect, 'password'>
 export type RefreshToken = typeof refreshTokens.$inferSelect
-export type Note = typeof notes.$inferSelect
+export type Note = Omit<typeof notes.$inferSelect, 'userId'> & {
+  author: InferSelectModel<typeof users>
+}
