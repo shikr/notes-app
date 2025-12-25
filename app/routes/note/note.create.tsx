@@ -1,6 +1,7 @@
 import { Form, redirect } from 'react-router'
 import { Button } from '~/common/components/button'
 import { Input } from '~/common/components/input'
+import { userContext } from '~/context'
 import type { Route } from './+types/note.create'
 
 export const handle = {
@@ -31,4 +32,10 @@ export default function CreateNote(_: Route.ComponentProps) {
       </Button>
     </Form>
   )
+}
+
+export function loader({ context }: Route.LoaderArgs) {
+  const user = context.get(userContext)
+  if (user === null) return redirect('/login')
+  return null
 }

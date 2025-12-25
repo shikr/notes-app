@@ -1,5 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { Link, redirect } from 'react-router'
+import { userContext } from '~/context'
 import { database } from '~/database/context'
 import { users } from '~/database/schema'
 import type { Route } from './+types/auth.login'
@@ -62,4 +63,10 @@ export default function Login({ actionData }: Route.ComponentProps) {
       </div>
     </div>
   )
+}
+
+export function loader({ context }: Route.LoaderArgs) {
+  const user = context.get(userContext)
+  if (user !== null) return redirect('/')
+  return null
 }
