@@ -1,59 +1,11 @@
-import { type UIMatch, useMatches, useNavigate, useOutlet } from 'react-router'
+import { eq } from 'drizzle-orm'
+import { data, type UIMatch, useMatches, useNavigate, useOutlet } from 'react-router'
 import { Modal } from '~/common/components/modal'
+import { userContext } from '~/context'
+import { database } from '~/database/context'
+import { notes } from '~/database/schema'
 import type { Route } from './+types/home'
-import type { Note } from './components/note'
 import { NoteCollection } from './components/note-collection'
-
-let notes: Note[] = [
-  {
-    id: '1',
-    title: 'First Note',
-    content: 'This is the content of the first note.',
-    user: { id: 'u1', name: 'Alice', createdAt: new Date() }
-  },
-  {
-    id: '2',
-    title: 'Second Note',
-    content: 'This is the content of the second note.',
-    user: { id: 'u2', name: 'Bob', createdAt: new Date() }
-  },
-  {
-    id: '3',
-    title: 'Third Note',
-    content: 'This is the content of the third note.',
-    user: { id: 'u3', name: 'Charlie', createdAt: new Date() }
-  },
-  {
-    id: '4',
-    title: 'Fourth Note',
-    content: 'This is the content of the fourth note.',
-    user: { id: 'u4', name: 'Diana', createdAt: new Date() }
-  },
-  {
-    id: '5',
-    title: 'Fifth Note',
-    content: 'This is the content of the fifth note.',
-    user: { id: 'u5', name: 'Ethan', createdAt: new Date() }
-  },
-  {
-    id: '6',
-    title: 'Sixth Note',
-    content: 'This is the content of the sixth note.',
-    user: { id: 'u6', name: 'Fiona', createdAt: new Date() }
-  },
-  {
-    id: '7',
-    title: 'Seventh Note',
-    content: 'This is the content of the seventh note.',
-    user: { id: 'u7', name: 'George', createdAt: new Date() }
-  },
-  {
-    id: '8',
-    title: 'Eighth Note',
-    content: 'This is the content of the eighth note.',
-    user: { id: 'u8', name: 'Hannah', createdAt: new Date() }
-  }
-]
 
 // biome-ignore lint/correctness/noEmptyPattern: Meta function example
 export function meta({}: Route.MetaArgs) {
@@ -63,17 +15,45 @@ export function meta({}: Route.MetaArgs) {
   ]
 }
 
-export async function action({ request }: Route.ActionArgs) {
+export async function action({ request, context }: Route.ActionArgs) {
   const formData = await request.formData()
   const id = formData.get('id')
+  const user = context.get(userContext)
 
-  // Simple deletion logic for demonstration
-  notes = notes.filter((note) => note.id !== id)
+  if (user === null) return data({ error: 'User not authenticated.' }, { status: 401 })
+
+  if (typeof id === 'string') {
+    const db = database()
+    const { userId } = (await db.query.notes.findFirst({
+      columns: {
+        userId: true
+      },
+      where: eq(notes.id, id)
+    })) ?? { userId: null }
+
+    if (userId === user.id) {
+      await db.delete(notes).where(eq(notes.id, id))
+      return { ok: true }
+    }
+
+    return data({ error: 'You are not authorized to delete this note.' }, { status: 403 })
+  }
+
+  return data({ error: 'Invalid form data.' }, { status: 400 })
 }
 
-export function loader(_: Route.LoaderArgs) {
+export async function loader(_: Route.LoaderArgs) {
+  const notesList = await database().query.notes.findMany({
+    columns: {
+      userId: false
+    },
+    with: {
+      author: true
+    }
+  })
+
   return {
-    notes
+    notes: notesList
   }
 }
 

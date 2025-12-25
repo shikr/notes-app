@@ -1,7 +1,7 @@
 import { Link, useRouteLoaderData } from 'react-router'
 import { Button } from '~/common/components/button'
-import type { User } from '~/database/schema'
-import NoteItem, { type Note } from './note'
+import type { Note, User } from '~/database/schema'
+import NoteItem from './note'
 
 export interface NoteInventoryProps {
   notes: Note[]

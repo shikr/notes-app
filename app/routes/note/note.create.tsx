@@ -1,7 +1,9 @@
-import { Form, redirect } from 'react-router'
+import { data, Form, redirect } from 'react-router'
 import { Button } from '~/common/components/button'
 import { Input } from '~/common/components/input'
 import { userContext } from '~/context'
+import { database } from '~/database/context'
+import { notes } from '~/database/schema'
 import type { Route } from './+types/note.create'
 
 export const handle = {
@@ -9,9 +11,26 @@ export const handle = {
   header: <h2 className="text-xl font-bold">Create New Note</h2>
 }
 
-export function action(_: Route.ActionArgs) {
-  // Placeholder for future note creation logic
-  return redirect('/')
+export async function action({ context, request }: Route.ActionArgs) {
+  const formData = await request.formData()
+  const title = formData.get('title')
+  const content = formData.get('content')
+  const user = context.get(userContext)
+
+  if (user === null) return data({ error: 'User not authenticated.' }, { status: 401 })
+
+  if (typeof title === 'string' && typeof content === 'string') {
+    const db = database()
+    await db.insert(notes).values({
+      title,
+      content,
+      userId: user.id
+    })
+
+    return redirect('/')
+  }
+
+  return data({ error: 'Invalid form data.' }, { status: 400 })
 }
 
 export default function CreateNote(_: Route.ComponentProps) {
