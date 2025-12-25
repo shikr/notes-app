@@ -23,11 +23,6 @@ app.use((_, __, next) => DatabaseContext.run(db, next))
 
 app.use(
   createRequestHandler({
-    build: () => import('virtual:react-router/server-build'),
-    getLoadContext() {
-      return {
-        value: 'Hello from Express'
-      }
-    }
+    build: () => import('virtual:react-router/server-build')
   })
 )
