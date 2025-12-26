@@ -1,17 +1,18 @@
-# Welcome to React Router!
+# React Router Notes App
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A simple full-stack React application using React Router, server-side rendering, and various modern tools and practices.
 
 ## Features
 
 - 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
 - 🔄 Data loading and mutations
-- 🔒 TypeScript by default
+- 🔒 Authentication and authorization
 - 🎉 TailwindCSS for styling
+- 🎬 Motion for animations
+- ⚡ Vite for fast development and build
+- 📦 PNPM for package management
+- 🛠️ TypeScript for type safety
 - 💾 PostgreSQL + DrizzleORM
-- 📖 [React Router docs](https://reactrouter.com/)
 
 ## Getting Started
 
@@ -20,7 +21,7 @@ A modern, production-ready template for building full-stack React applications u
 Install the dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Development
@@ -30,23 +31,23 @@ Copy `.env.example` to `.env` and provide a `DATABASE_URL` with your connection 
 Run an initial database migration:
 
 ```bash
-npm run db:migrate
+pnpm exec drizzle-kit push
 ```
 
 Start the development server with HMR:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Your application will be available at `http://localhost:3000`.
 
 ## Building for Production
 
 Create a production build:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ## Deployment
@@ -60,37 +61,45 @@ To build and run using Docker:
 docker build -t my-app .
 
 # Run the container
-docker run -p 3000:3000 my-app
+docker run -p 3000:3000 --env-file .env my-app
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+### Docker Compose Deployment
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+A `docker-compose.yml` file is included for easier setup with Docker Compose.
+Additionally, you'll need to add `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB` for the PostgreSQL service to your `.env` file.
+
+After setting up your `.env` file, run:
+
+```bash
+docker-compose up --build
+```
 
 ### DIY Deployment
 
 If you're familiar with deploying Node applications, the built-in app server is production-ready.
 
-Make sure to deploy the output of `npm run build`
+Make sure to deploy the output of `pnpm build` and drizzle configuration files for database migrations.
 
 ```
 ├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
+├── pnpm-lock.yaml (or package-lock.json, or bun.lockb)
 ├── server.js
 ├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+│   ├── client/        # Static assets
+│   └── server/        # Server-side code
+├── drizzle.config.ts  # Drizzle ORM configuration
+├── database/          # Database required files
+│   └── schema.ts
+└── start.sh           # Startup script
 ```
 
-## Styling
+Run the server with:
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+```bash
+./start.sh
+```
 
 ---
 
-Built with ❤️ using React Router.
+This is just a simple example application, but it demonstrates how to set up a full-stack React application with React Router and various modern tools and practices. Feel free to customize and expand upon it as needed!
